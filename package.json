@@ -1,0 +1,11 @@
+{
+  "name": "microcaribe",
+  "version": "1.0.0",
+  "description": "Gestion de microcreditos diarios, offline-first (PWA)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/loan.test.mjs"
+  }
+}

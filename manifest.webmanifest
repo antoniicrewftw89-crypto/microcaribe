@@ -1,0 +1,15 @@
+{
+  "name": "MicroCaribe",
+  "short_name": "MicroCaribe",
+  "description": "Gestion de microcreditos diarios, funciona sin internet",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "es-CO",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
