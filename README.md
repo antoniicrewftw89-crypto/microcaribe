@@ -1,7 +1,6 @@
 # MicroCaribe
 
 Aplicación para gestionar microcréditos diarios ("gota a gota") que **funciona sin internet**.
-Proyecto de Ingeniería de Requerimientos, Universidad de Cartagena.
 
 - Clientes con GPS, préstamos con tabla de cuotas, pagos con recibo, cartera del día, mora, ruta por cercanía, cuadre de caja y gastos.
 - Datos cifrados en el dispositivo con un PIN. Se instala como app (PWA).
