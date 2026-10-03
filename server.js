@@ -15,6 +15,11 @@ const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || '127.0.0.1';
 const MAX_BODY = 6 * 1024 * 1024;
 
+const PUBLICOS = new Set([
+  'index.html', 'styles.css', 'sw.js', 'manifest.webmanifest', 'icon.svg',
+  'js/app.js', 'js/store.js', 'js/loan.js',
+]);
+
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -83,15 +88,14 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { meta: cloud.meta, records: Object.values(cloud.records) });
     }
 
-    // Archivos estaticos (sin permitir salir de la carpeta)
-    let rel = decodeURIComponent(url.pathname);
-    if (rel === '/') rel = '/index.html';
-    const file = path.normalize(path.join(ROOT, rel));
-    const blocked = ['data', 'test', 'node_modules'].some((d) => file.startsWith(path.join(ROOT, d)));
-    if (!file.startsWith(ROOT) || blocked || file.endsWith('server.js')) {
-      res.writeHead(403);
-      return res.end('Prohibido');
+    // Archivos estaticos: SOLO los de esta lista cerrada (nada de rutas armadas con lo que
+    // manda el navegador, asi no hay forma de salir de la carpeta ni de leer data/ o server.js)
+    const rel = decodeURIComponent(url.pathname).replace(/^\/+/, '') || 'index.html';
+    if (!PUBLICOS.has(rel)) {
+      res.writeHead(404);
+      return res.end('No encontrado');
     }
+    const file = path.join(ROOT, rel);
     const buf = await readFile(file);
     res.writeHead(200, {
       'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream',
